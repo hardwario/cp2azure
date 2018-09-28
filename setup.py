@@ -1,8 +1,8 @@
 from setuptools import setup
 
 setup(
-    name='cmctl',
-    packages=['cmctl'],
+    name='cp2azure',
+    packages=['cp2azure'],
     version='1.0.0',
     description='COOPER to Azure IoT Hub',
     url='https://github.com/hardwario/cp2azure',
