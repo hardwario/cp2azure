@@ -1,0 +1,6 @@
+zmq:
+  host: 192.168.43.69
+  port: 5680
+  timeout: 5000
+azure:
+  connection_string:

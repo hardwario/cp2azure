@@ -1,0 +1,4 @@
+.DS_Store
+.vscode/
+*.pyc
+iothub_client.so
