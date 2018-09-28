@@ -25,6 +25,6 @@ setup(
     ],
     entry_points='''
         [console_scripts]
-        cmctl=cp2azure.cli:main
+        cp2azure=cp2azure.cli:main
     '''
 )
