@@ -1,5 +1,5 @@
 zmq:
-  host: 192.168.43.69
+  host: localhost
   port: 5680
   timeout: 5000
 azure:

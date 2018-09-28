@@ -2,16 +2,16 @@
 
 import azure
 import click
+import json
 import logging.config
 import sys
 import yaml
 import zmq
-import json
 
 config = {
     'zmq': {
         'host': 'localhost',
-        'port': 1883,
+        'port': 5680,
         'timeout': 5000
     },
     'azure': {
@@ -22,32 +22,32 @@ config = {
         'version': 1,
         'formatters': {
             'short': {
-                'format': '%(asctime)s %(levelname)s %(name)s: %(message)s'
+                'format': '%(asctime)s %(levelname)s %(module)s: %(message)s'
             }
         },
         'handlers': {
             'console': {
                 'level': 'DEBUG',
                 'formatter': 'short',
-                'class': 'logging.StreamHandler',
+                'class': 'logging.StreamHandler'
             }
         },
         'loggers': {
             '': {
                 'handlers': ['console'],
-                'level': 'ERROR'
+                'level': 'DEBUG'
             }
         }
     }
 }
 
 @click.command()
-@click.option('--config', '-c', 'f', type=click.File('r'), required=True, help='Configuration file.')
+@click.option('--config', '-c', 'config_file', type=click.File('r'), required=True, help='Configuration file.')
 @click.version_option()
-def cli(f):
+def cli(config_file):
     '''ZeroMQ to Azure IoT Hub.'''
     try:
-        config_yaml = yaml.safe_load(f)
+        config_yaml = yaml.safe_load(config_file)
         for key in config.keys():
             if type(config[key]) == dict:
                 config[key].update(config_yaml.get(key, {}))
@@ -58,6 +58,7 @@ def cli(f):
         sys.exit(1)
 
     logging.config.dictConfig(config['log'])
+    logging.info('Process started')
 
     server()
 
@@ -87,10 +88,13 @@ def server():
             logging.error('Unhandled exception', exc_info=True)
 
 def main():
-    cli()
-
-if __name__ == '__main__':
     try:
-        main()
+        cli()
     except KeyboardInterrupt:
         pass
+    except Exception as e:
+        click.echo(str(e), err=True)
+        sys.exit(1)
+
+if __name__ == '__main__':
+    main()

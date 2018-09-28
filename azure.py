@@ -24,10 +24,10 @@ class AzureClient:
             logging.error('Unhandled exception', exc_info=True)
 
     def _connection_status_callback(self, result, reason, user_context):
-        logging.error('Azure IoT Hub status: %s (%d)', result, reason)
+        logging.info('Connection status: %s (%d)', result, reason)
 
     def _receive_message_callback(self, message, counter):
-        logging.error('Azure IoT Hub message: %s', message)
+        logging.info('Received message: %s', message)
 
     def _send_confirmation_callback(self, message, result, user_context):
-        logging.error('Azure IoT confirmation: %s', result)
+        logging.info('Send confirmation: %s', result)
