@@ -1,10 +1,10 @@
-import azure
 import click
 import json
 import logging.config
 import sys
 import yaml
 import zmq
+from . import azure
 
 config = {
     'zmq': {
