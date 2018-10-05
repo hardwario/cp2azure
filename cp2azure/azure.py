@@ -6,6 +6,7 @@ RECEIVE_CONTEXT = 0
 CONNECTION_STATUS_CONTEXT = 0
 MESSAGE_TIMEOUT = 10000
 
+
 class AzureClient:
 
     def __init__(self, connection_string):
@@ -20,7 +21,7 @@ class AzureClient:
             self._client.send_event_async(m, self._send_confirmation_callback, None)
         except iothub_client.IoTHubError as e:
             logging.error('Azure IoT Hub error: %s', e)
-        except:
+        except Exception as e:
             logging.error('Unhandled exception', exc_info=True)
 
     def _connection_status_callback(self, result, reason, user_context):

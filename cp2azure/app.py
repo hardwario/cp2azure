@@ -47,7 +47,7 @@ def server(config):
 
     try:
         az = azure.AzureClient(config['azure']['connection_string'])
-    except:
+    except Exception as e:
         logging.error('Failed to create Azure IoT Hub client', exc_info=True)
         sys.exit(1)
 
@@ -60,6 +60,7 @@ def server(config):
         except Exception:
             logging.error('Unhandled exception', exc_info=True)
 
+
 def main():
     try:
         cli()
@@ -68,6 +69,7 @@ def main():
     except Exception as e:
         click.echo(str(e), err=True)
         sys.exit(1)
+
 
 if __name__ == '__main__':
     main()
