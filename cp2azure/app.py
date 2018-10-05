@@ -7,11 +7,13 @@ import zmq
 from . import azure
 from .config import load_config
 
+__version__ = '@@VERSION@@'
 
 
 @click.command()
 @click.option('--config', '-c', 'config_file', type=click.File('r'), required=True, help='Configuration file.')
 @click.option('--test', is_flag=True, help='Test configuration file.')
+@click.version_option(version=__version__)
 def cli(config_file, test=False):
     '''ZeroMQ to Azure IoT Hub.'''
 
