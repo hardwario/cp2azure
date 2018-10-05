@@ -21,7 +21,7 @@ setup(
         'Intended Audience :: Science/Research'
     ],
     install_requires=[
-        'azure-iothub-device-client==1.4.3', 'click==6.7', 'PyYAML==3.13','pyzmq==17.1.2'
+        'azure-iothub-device-client==1.4.3', 'click==6.7', 'PyYAML==3.13','pyzmq==17.1.2','schema'
     ],
     entry_points='''
         [console_scripts]
