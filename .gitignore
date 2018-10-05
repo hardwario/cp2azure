@@ -6,3 +6,4 @@
 build/
 dist/
 iothub_client.so
+.venv/
