@@ -3,7 +3,7 @@ from setuptools import setup
 setup(
     name='cp2azure',
     packages=['cp2azure'],
-    version='1.0.1',
+    version='@@VERSION@@',
     description='COOPER to Azure IoT Hub',
     url='https://github.com/hardwario/cp2azure',
     author='HARDWARIO s.r.o.',
