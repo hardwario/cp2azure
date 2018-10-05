@@ -5,62 +5,35 @@ import sys
 import yaml
 import zmq
 from . import azure
+from .config import load_config
 
-config = {
-    'zmq': {
-        'host': 'localhost',
-        'port': 5680,
-        'timeout': 5000
-    },
-    'azure': {
-        'connection_string': None
-    },
-    'log': {
-        'disable_existing_loggers': False,
-        'version': 1,
-        'formatters': {
-            'short': {
-                'format': '%(asctime)s %(levelname)s %(module)s: %(message)s'
-            }
-        },
-        'handlers': {
-            'console': {
-                'level': 'DEBUG',
-                'formatter': 'short',
-                'class': 'logging.StreamHandler'
-            }
-        },
-        'loggers': {
-            '': {
-                'handlers': ['console'],
-                'level': 'DEBUG'
-            }
-        }
-    }
-}
+
 
 @click.command()
 @click.option('--config', '-c', 'config_file', type=click.File('r'), required=True, help='Configuration file.')
-@click.version_option()
-def cli(config_file):
+@click.option('--test', is_flag=True, help='Test configuration file.')
+def cli(config_file, test=False):
     '''ZeroMQ to Azure IoT Hub.'''
+
     try:
-        config_yaml = yaml.safe_load(config_file)
-        for key in config.keys():
-            if type(config[key]) == dict:
-                config[key].update(config_yaml.get(key, {}))
-            elif key in config_yaml:
-                config[key] = config_yaml[key]
+        config = load_config(config_file)
+        config_file.close()
     except Exception as e:
         logging.error('Failed opening configuration file')
+        logging.error(str(e))
         sys.exit(1)
+
+    if test:
+        click.echo("The configuration file seems ok")
+        return
 
     logging.config.dictConfig(config['log'])
     logging.info('Process started')
 
-    server()
+    server(config)
 
-def server():
+
+def server(config):
     context = zmq.Context()
 
     sock = context.socket(zmq.SUB)
