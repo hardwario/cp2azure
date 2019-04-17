@@ -1,4 +1,13 @@
 from setuptools import setup
+from os import path
+
+this_directory = path.abspath(path.dirname(__file__))
+
+with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
+    long_description = f.read()
+
+with open('requirements.txt', 'r') as f:
+    requirements = f.read()
 
 setup(
     name='cp2azure',
@@ -20,11 +29,11 @@ setup(
         'Environment :: Console',
         'Intended Audience :: Science/Research'
     ],
-    install_requires=[
-        'azure-iothub-device-client==1.4.3', 'click==6.7', 'PyYAML==3.13','pyzmq==17.1.2','schema'
-    ],
+    install_requires=requirements,
     entry_points='''
         [console_scripts]
         cp2azure=cp2azure.app:main
-    '''
+    ''',
+    long_description=long_description,
+    long_description_content_type='text/markdown'
 )
