@@ -67,10 +67,9 @@ def load_config(config_file):
 
 def _apply_default(config, default):
     for key in default:
-        if isinstance(default[key], dict):
-            if key not in config:
-                config[key] = default[key]
-            else:
-                _apply_default(config[key], default[key])
-        else:
+        if key not in config:
             config[key] = default[key]
+            continue
+
+        if isinstance(default[key], dict):
+            _apply_default(config[key], default[key])
