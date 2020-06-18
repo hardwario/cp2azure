@@ -25,6 +25,7 @@ setup(
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
         'Topic :: Scientific/Engineering :: Human Machine Interfaces',
         'Environment :: Console',
         'Intended Audience :: Science/Research'

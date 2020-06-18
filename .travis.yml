@@ -1,6 +1,10 @@
 sudo: false
 language: python
-python: 3.5
+python: 3.6
+addons:
+  apt:
+    packages:
+      - libboost-python-dev
 script:
 - "./test.sh"
 - "./build.sh"
