@@ -53,8 +53,10 @@ def server(config):
 
     while True:
         try:
-            message = sock.recv_json()
-            az.send(json.dumps(message))
+            payload = sock.recv_json()
+            logging.info('Message from %s', payload['id'])
+            logging.debug("payload %s", payload)
+            az.send(json.dumps(payload))
         except zmq.error.Again as e:
             logging.error('ZeroMQ error: %s' % e)
         except Exception:

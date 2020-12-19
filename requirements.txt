@@ -1,4 +1,4 @@
-azure-iothub-device-client==1.4.6
+azure-iot-device
 click>=7.0
 PyYAML>=5.1
 pyzmq>=17.1
